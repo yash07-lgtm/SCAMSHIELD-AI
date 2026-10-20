@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScamShield AI — Scam &amp; Spam Detector</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+  <!-- Bootstrap Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    rel="stylesheet"
+  />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+  <!-- ░░ NAVBAR ░░ -->
+  <nav class="navbar navbar-expand-lg navbar-dark ss-navbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <i class="bi bi-shield-lock-fill ss-brand-icon"></i>
+        <span>ScamShield <span class="ss-accent">AI</span></span>
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#mainNav"
+        aria-controls="mainNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="#analyzer">Analyzer</a></li>
+          <li class="nav-item"><a class="nav-link" href="#how-it-works">How It Works</a></li>
+          <li class="nav-item"><a class="nav-link" href="#safety-tips">Safety Tips</a></li>
+          <li class="nav-item">
+            <span class="badge ss-badge-phase ms-lg-2">Phase 3 — Enhanced Results</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ░░ HERO ░░ -->
+  <header class="ss-hero text-center">
+    <div class="container py-5">
+      <div class="ss-hero-icon mb-3">
+        <i class="bi bi-shield-shaded"></i>
+      </div>
+      <h1 class="ss-hero-title">
+        Scam<span class="ss-accent">Shield</span> <span class="ss-accent">AI</span>
+      </h1>
+      <p class="ss-hero-subtitle mx-auto">
+        Paste any email, SMS, or chat message below and ScamShield AI will
+        analyse it for spam indicators, phishing patterns, and social‑engineering
+        red flags — all locally, with no data leaving your device.
+      </p>
+      <a href="#analyzer" class="btn ss-btn-primary btn-lg mt-2">
+        <i class="bi bi-search me-2"></i>Start Analyzing
+      </a>
+    </div>
+  </header>
+
+  <!-- ░░ HOW IT WORKS ░░ -->
+  <section id="how-it-works" class="py-5 ss-section-alt">
+    <div class="container">
+      <h2 class="text-center ss-section-title mb-4">How It Works</h2>
+      <div class="row g-4 justify-content-center">
+
+        <div class="col-md-4">
+          <div class="ss-card h-100 text-center p-4">
+            <div class="ss-step-icon mb-3"><i class="bi bi-clipboard-plus"></i></div>
+            <h5 class="ss-card-title">1. Paste Your Message</h5>
+            <p class="ss-card-text">
+              Copy any suspicious email, SMS, or chat message and paste it
+              into the analysis box.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="ss-card h-100 text-center p-4">
+            <div class="ss-step-icon mb-3"><i class="bi bi-cpu"></i></div>
+            <h5 class="ss-card-title">2. Rule-Based Analysis</h5>
+            <p class="ss-card-text">
+              The engine scans for urgency language, phishing links,
+              impersonation patterns, and credential‑harvesting tactics
+              using pattern-matching rules.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="ss-card h-100 text-center p-4">
+            <div class="ss-step-icon mb-3"><i class="bi bi-file-earmark-text"></i></div>
+            <h5 class="ss-card-title">3. Instant Verdict</h5>
+            <p class="ss-card-text">
+              Receive a clear verdict, risk score, plain‑language explanations,
+              and specific recommendations for what to do next.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ ANALYZER ░░ -->
+  <section id="analyzer" class="py-5">
+    <div class="container">
+      <h2 class="text-center ss-section-title mb-2">Message Analyzer</h2>
+      <p class="text-center ss-muted mb-4">
+        Paste a message to analyse. Nothing is sent to any server or stored anywhere.
+      </p>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+          <!-- Input card -->
+          <div class="ss-card p-4 mb-4">
+            <label for="messageInput" class="form-label ss-label">
+              <i class="bi bi-envelope-open me-1"></i>Message to Analyse
+            </label>
+            <textarea
+              id="messageInput"
+              class="form-control ss-textarea"
+              rows="7"
+              maxlength="20000"
+              placeholder="Paste your email, SMS, or chat message here…"
+              aria-describedby="charCounter"
+              oninput="updateCharCount()"
+            ></textarea>
+            <div id="charCounter" class="ss-char-counter mt-1" aria-live="polite">
+              0 / 20,000 characters
+            </div>
+
+            <!-- Sample messages -->
+            <div class="mt-3 d-flex flex-wrap gap-2 align-items-center">
+              <span class="ss-muted small">Load sample:</span>
+              <button type="button" class="btn btn-sm ss-btn-sample" onclick="loadSample('phishing')">
+                <i class="bi bi-fish me-1"></i>Phishing
+              </button>
+              <button type="button" class="btn btn-sm ss-btn-sample" onclick="loadSample('prize')">
+                <i class="bi bi-gift me-1"></i>Prize Spam
+              </button>
+              <button type="button" class="btn btn-sm ss-btn-sample" onclick="loadSample('otp')">
+                <i class="bi bi-phone me-1"></i>OTP Scam
+              </button>
+              <button type="button" class="btn btn-sm ss-btn-sample" onclick="loadSample('payment')">
+                <i class="bi bi-credit-card me-1"></i>Payment Fraud
+              </button>
+              <button type="button" class="btn btn-sm ss-btn-sample" onclick="loadSample('legit1')">
+                <i class="bi bi-check-circle me-1"></i>Legitimate
+              </button>
+              <button type="button" class="btn btn-sm ss-btn-sample" onclick="loadSample('legit2')">
+                <i class="bi bi-calendar-check me-1"></i>Appointment
+              </button>
+            </div>
+
+            <!-- Error alert -->
+            <div
+              id="errorAlert"
+              class="alert ss-alert-error d-none mt-3 mb-0"
+              role="alert"
+              aria-live="assertive"
+            ></div>
+
+            <!-- Action buttons -->
+            <div class="mt-3 d-flex gap-3 flex-wrap">
+              <button
+                type="button"
+                id="analyzeBtn"
+                class="btn ss-btn-primary"
+                onclick="analyzeMessage()"
+                aria-label="Analyse the pasted message"
+              >
+                <i class="bi bi-search me-2"></i>Analyze Message
+              </button>
+              <button
+                type="button"
+                id="clearBtn"
+                class="btn ss-btn-outline"
+                onclick="clearAll()"
+                aria-label="Clear the message and reset results"
+              >
+                <i class="bi bi-x-circle me-2"></i>Clear
+              </button>
+            </div>
+          </div>
+
+          <!-- ░░ RESULTS AREA ░░ -->
+          <!-- aria-live so screen readers announce when results appear -->
+          <div id="resultsArea" class="d-none" aria-live="polite" aria-atomic="true">
+
+            <!-- Automated assessment notice -->
+            <div class="alert ss-alert-info d-flex align-items-start gap-2 mb-3" role="note">
+              <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+              <div>
+                <strong>Automated Assessment</strong> — Results are produced by
+                pattern-matching rules, not a trained AI model or human expert.
+                This tool helps you spot common warning signs.
+                <strong>Always verify suspicious messages through official channels
+                before taking any action.</strong>
+              </div>
+            </div>
+
+            <!-- ── Verdict banner ── -->
+            <div id="verdictBanner" class="ss-verdict-banner mb-3 p-4 text-center rounded" role="status">
+              <div class="ss-verdict-icon mb-2">
+                <i id="verdictIcon" class="bi" aria-hidden="true"></i>
+              </div>
+              <h3 id="verdictLabel" class="ss-verdict-label mb-1"></h3>
+              <p id="verdictSubtitle" class="ss-muted mb-0 small"></p>
+            </div>
+
+            <!-- ── Risk score bar ── -->
+            <div class="ss-card p-4 mb-3">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="ss-stat-label">RISK LEVEL</span>
+                <span id="riskLabel" class="ss-risk-label fw-bold"></span>
+              </div>
+              <div
+                class="ss-risk-bar-track"
+                role="progressbar"
+                id="riskBarWrap"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                <div id="riskBar" class="ss-risk-bar-fill"></div>
+              </div>
+              <div class="d-flex justify-content-between mt-1">
+                <span class="ss-risk-scale-label">Low</span>
+                <span class="ss-risk-scale-label">Medium</span>
+                <span class="ss-risk-scale-label">High</span>
+              </div>
+            </div>
+
+            <!-- ── Stats row ── -->
+            <div class="row g-3 mb-3">
+              <div class="col-sm-4">
+                <div class="ss-card p-3 text-center h-100">
+                  <div class="ss-stat-label">Risk Score</div>
+                  <div id="riskScore" class="ss-stat-value"></div>
+                  <div class="ss-stat-sub">out of 100</div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="ss-card p-3 text-center h-100">
+                  <div class="ss-stat-label">Confidence</div>
+                  <div id="confidenceLevel" class="ss-stat-value"></div>
+                  <div class="ss-stat-sub">rule coverage</div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="ss-card p-3 text-center h-100">
+                  <div class="ss-stat-label">Signals Found</div>
+                  <div id="signalsFound" class="ss-stat-value"></div>
+                  <div class="ss-stat-sub">warning signs</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Explanation ── -->
+            <div class="ss-card p-4 mb-3">
+              <h6 class="ss-card-title mb-2">
+                <i class="bi bi-chat-text me-2 ss-accent"></i>What We Found
+              </h6>
+              <p id="explanationText" class="mb-0 ss-card-text"></p>
+            </div>
+
+            <!-- ── Warning signs ── -->
+            <div id="warningsCard" class="ss-card p-4 mb-3">
+              <h6 class="ss-card-title mb-3">
+                <i class="bi bi-exclamation-triangle me-2 text-warning"></i>Warning Signs Detected
+              </h6>
+              <ul id="warningsList" class="list-unstyled mb-0"></ul>
+            </div>
+
+            <!-- ── Recommendations ── -->
+            <div class="ss-card p-4 mb-2">
+              <h6 class="ss-card-title mb-3">
+                <i class="bi bi-shield-check me-2 text-success"></i>Recommended Actions
+              </h6>
+              <ul id="recommendationsList" class="list-unstyled mb-0"></ul>
+            </div>
+
+          </div>
+          <!-- /resultsArea -->
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ SAFETY TIPS ░░ -->
+  <section id="safety-tips" class="py-5 ss-section-alt">
+    <div class="container">
+      <h2 class="text-center ss-section-title mb-4">
+        <i class="bi bi-lightbulb me-2 ss-accent"></i>Cybersecurity Safety Tips
+      </h2>
+      <div class="row g-4">
+
+        <div class="col-md-6 col-lg-3">
+          <div class="ss-card p-4 h-100">
+            <i class="bi bi-link-45deg ss-tip-icon"></i>
+            <h6 class="ss-card-title mt-2">Verify Links Before Clicking</h6>
+            <p class="ss-card-text small">
+              Hover over links to check the real URL. Legitimate organisations
+              never use URL shorteners or IP addresses in links.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="ss-card p-4 h-100">
+            <i class="bi bi-clock-history ss-tip-icon"></i>
+            <h6 class="ss-card-title mt-2">Be Sceptical of Urgency</h6>
+            <p class="ss-card-text small">
+              Scammers manufacture panic. "Act now or your account will be
+              closed" is a classic pressure tactic — slow down and verify.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="ss-card p-4 h-100">
+            <i class="bi bi-key ss-tip-icon"></i>
+            <h6 class="ss-card-title mt-2">Never Share Credentials</h6>
+            <p class="ss-card-text small">
+              No legitimate bank, government body, or tech company will ever
+              ask for your password or PIN via email or SMS.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="ss-card p-4 h-100">
+            <i class="bi bi-person-check ss-tip-icon"></i>
+            <h6 class="ss-card-title mt-2">Verify the Sender</h6>
+            <p class="ss-card-text small">
+              Check the full email address, not just the display name.
+              Scammers spoof familiar names with random domains.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="ss-footer py-4 text-center">
+    <div class="container">
+      <p class="mb-1">
+        <i class="bi bi-shield-lock-fill ss-accent me-1"></i>
+        <strong>ScamShield AI</strong> — Student Cybersecurity Project
+      </p>
+      <p class="ss-muted small mb-0">
+        All analysis is performed locally. No messages are transmitted or stored.
+        &nbsp;|&nbsp; Phase 3 — Enhanced Results UI
+      </p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS bundle -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmztf+MLz6HkFkB2tFxDVGmBHxSN"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- ░░ Phase 3 — Enhanced UI logic ░░ -->
+  <script>
+    /* ────────────────────────────────────────────────────────
+       Sample messages — six distinct categories
+    ──────────────────────────────────────────────────────── */
+    const SAMPLES = {
+      phishing: [
+        "URGENT: Your Netflix account has been suspended due to a billing failure.",
+        "",
+        "To avoid permanent closure, verify your payment details immediately:",
+        "https://netflix-secure-update.xyz/verify",
+        "",
+        "This link expires in 24 hours. Act now to restore access.",
+        "",
+        "\u2014 Netflix Billing Team"
+      ].join("\n"),
+
+      prize: [
+        "Congratulations! You have been SELECTED for a FREE $500 Amazon Gift Card!",
+        "",
+        "You are our 1,000,000th visitor! Claim your prize before it expires:",
+        "http://bit.ly/claim-free-gift",
+        "",
+        "Limited time offer. Don't miss out!!!"
+      ].join("\n"),
+
+      otp: [
+        "ALERT: Unusual sign-in detected on your bank account.",
+        "",
+        "To secure your account, enter your one-time passcode and password at:",
+        "http://192.0.2.45/bank-secure-login",
+        "",
+        "If you do not verify within 30 minutes your account will be locked.",
+        "",
+        "\u2014 Security Team, Your Bank"
+      ].join("\n"),
+
+      payment: [
+        "Final Notice: You have an unpaid invoice of $847.00.",
+        "",
+        "Legal action and an arrest warrant will be issued within 24 hours",
+        "if payment is not made immediately.",
+        "",
+        "Pay now via wire transfer or Bitcoin to avoid prosecution.",
+        "Call our debt recovery team immediately."
+      ].join("\n"),
+
+      legit1: [
+        "Hi Sarah,",
+        "",
+        "Just a reminder that your dental appointment is scheduled for",
+        "Tuesday, 14 January at 10:30 AM.",
+        "",
+        "If you need to reschedule, please call us at (555) 234-5678",
+        "or reply to this message.",
+        "",
+        "Kind regards,",
+        "SmileCare Dental Practice"
+      ].join("\n"),
+
+      legit2: [
+        "Your Amazon order #112-3456789 has shipped and is on its way.",
+        "Estimated delivery: Thursday, 16 January.",
+        "",
+        "Track your package at amazon.com/orders.",
+        "",
+        "Thank you for shopping with Amazon."
+      ].join("\n")
+    };
+
+    /* ────────────────────────────────────────────────────────
+       Context-aware recommendations
+    ──────────────────────────────────────────────────────── */
+    const RECOMMENDATIONS = {
+      "Likely Spam/Scam": [
+        { icon: "bi-ban",            text: "Do not click any links or download any attachments from this message." },
+        { icon: "bi-building",       text: "Contact the organisation directly using the phone number or website from their official homepage \u2014 not details given in this message." },
+        { icon: "bi-key",            text: "Never provide passwords, PINs, OTPs, or card details in response to an unsolicited message." },
+        { icon: "bi-trash3",         text: "Delete or report this message as spam / phishing to your email or SMS provider." },
+        { icon: "bi-shield-lock",    text: "If you have already clicked a link or shared credentials, change your passwords immediately and contact your bank." }
+      ],
+      "Suspicious \u2014 needs review": [
+        { icon: "bi-pause-circle",   text: "Do not act on any instructions in this message until you have independently verified the sender." },
+        { icon: "bi-search",         text: "Look up the official contact details for the claimed sender (bank, company, government body) and call them directly." },
+        { icon: "bi-link-45deg",     text: "Do not click any links \u2014 navigate to the organisation\u2019s website manually instead." },
+        { icon: "bi-person-exclamation", text: "Ask a trusted person to review the message before responding or taking any action." }
+      ],
+      "Likely Legitimate": [
+        { icon: "bi-check-circle",   text: "No significant warning signs were detected. This message appears routine." },
+        { icon: "bi-eye",            text: "Always stay alert \u2014 even legitimate-looking messages can occasionally be spoofed. Verify the sender address if anything feels off." },
+        { icon: "bi-shield",         text: "Keep your devices and software updated and use strong, unique passwords for every account." }
+      ]
+    };
+
+    /* ────────────────────────────────────────────────────────
+       Risk bar colour thresholds
+    ──────────────────────────────────────────────────────── */
+    function riskColour(score) {
+      if (score >= 60) return "#ef4444";   /* red   */
+      if (score >= 30) return "#eab308";   /* amber */
+      return "#22c55e";                    /* green */
+    }
+
+    function riskLevelLabel(score) {
+      if (score >= 60) return "High";
+      if (score >= 30) return "Medium";
+      return "Low";
+    }
+
+    /* ────────────────────────────────────────────────────────
+       Character counter
+    ──────────────────────────────────────────────────────── */
+    function updateCharCount() {
+      const len = document.getElementById("messageInput").value.length;
+      const el  = document.getElementById("charCounter");
+      el.textContent = len.toLocaleString() + " / 20,000 characters";
+      el.classList.toggle("ss-char-counter--warn", len > 18000);
+    }
+
+    /* ────────────────────────────────────────────────────────
+       Load sample / clear
+    ──────────────────────────────────────────────────────── */
+    function loadSample(type) {
+      const ta = document.getElementById("messageInput");
+      ta.value = SAMPLES[type] || "";
+      updateCharCount();
+      document.getElementById("resultsArea").classList.add("d-none");
+      document.getElementById("errorAlert").classList.add("d-none");
+      ta.focus();
+    }
+
+    function clearAll() {
+      const ta = document.getElementById("messageInput");
+      ta.value = "";
+      updateCharCount();
+      document.getElementById("resultsArea").classList.add("d-none");
+      document.getElementById("errorAlert").classList.add("d-none");
+      ta.focus();
+    }
+
+    /* ────────────────────────────────────────────────────────
+       Submit
+    ──────────────────────────────────────────────────────── */
+    async function analyzeMessage() {
+      const text = document.getElementById("messageInput").value.trim();
+      if (!text) {
+        showError("Please paste a message before analysing.");
+        return;
+      }
+
+      const btn = document.getElementById("analyzeBtn");
+      btn.disabled = true;
+      btn.innerHTML =
+        '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Analysing\u2026';
+
+      document.getElementById("errorAlert").classList.add("d-none");
+      document.getElementById("resultsArea").classList.add("d-none");
+
+      try {
+        const resp = await fetch("/analyze", {
+          method:  "POST",
+          headers: { "Content-Type": "application/json" },
+          body:    JSON.stringify({ message: text })
+        });
+        const data = await resp.json();
+        if (!resp.ok) {
+          showError(data.error || "An unexpected error occurred.");
+        } else {
+          renderResults(data);
+        }
+      } catch {
+        showError("Could not reach the analysis server. Is Flask running?");
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-search me-2"></i>Analyze Message';
+      }
+    }
+
+    /* ────────────────────────────────────────────────────────
+       Error display
+    ──────────────────────────────────────────────────────── */
+    function showError(msg) {
+      const el = document.getElementById("errorAlert");
+      el.textContent = msg;
+      el.classList.remove("d-none");
+      el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    /* ────────────────────────────────────────────────────────
+       Render results — all user-supplied text via textContent
+    ──────────────────────────────────────────────────────── */
+    function renderResults(r) {
+
+      /* ── Verdict banner ── */
+      const banner = document.getElementById("verdictBanner");
+      banner.className = "ss-verdict-banner mb-3 p-4 text-center rounded " + r.css_class;
+      document.getElementById("verdictIcon").className  = "bi " + r.icon;
+      document.getElementById("verdictLabel").textContent    = r.verdict;
+      document.getElementById("verdictSubtitle").textContent = r.subtitle;
+
+      /* ── Risk bar ── */
+      const fill  = document.getElementById("riskBar");
+      const wrap  = document.getElementById("riskBarWrap");
+      const score = Math.min(100, Math.max(0, r.score));
+      fill.style.width      = score + "%";
+      fill.style.background = riskColour(score);
+      wrap.setAttribute("aria-valuenow", score);
+      wrap.setAttribute("aria-label",    "Risk score " + score + " out of 100");
+      document.getElementById("riskLabel").textContent      = riskLevelLabel(score);
+      document.getElementById("riskLabel").style.color      = riskColour(score);
+
+      /* ── Stats ── */
+      document.getElementById("riskScore").textContent       = score;
+      document.getElementById("confidenceLevel").textContent = r.confidence;
+      document.getElementById("signalsFound").textContent    = r.signals;
+
+      /* ── Explanation ── */
+      document.getElementById("explanationText").textContent = r.explanation;
+
+      /* ── Warning signs ── */
+      const wList = document.getElementById("warningsList");
+      wList.innerHTML = "";
+      if (!r.warnings || r.warnings.length === 0) {
+        const li   = document.createElement("li");
+        li.className = "ss-muted d-flex align-items-center gap-2";
+        const ico  = document.createElement("i");
+        ico.className = "bi bi-check-circle text-success flex-shrink-0";
+        ico.setAttribute("aria-hidden", "true");
+        const txt  = document.createElement("span");
+        txt.textContent = "No warning signs detected.";
+        li.appendChild(ico);
+        li.appendChild(txt);
+        wList.appendChild(li);
+      } else {
+        r.warnings.forEach(w => {
+          const li   = document.createElement("li");
+          li.className = "ss-warning-item mb-3 d-flex align-items-start gap-2";
+
+          const ico  = document.createElement("i");
+          ico.className = "bi bi-exclamation-circle-fill text-warning mt-1 flex-shrink-0";
+          ico.setAttribute("aria-hidden", "true");
+
+          const body = document.createElement("div");
+          body.className = "ss-warning-body";
+
+          const rule = document.createElement("strong");
+          rule.className   = "ss-warning-rule d-block";
+          rule.textContent = w.rule;                   /* textContent — safe */
+
+          const desc = document.createElement("p");
+          desc.className   = "ss-warning-desc mb-1 mt-1";
+          desc.textContent = w.description;            /* textContent — safe */
+
+          const ex   = document.createElement("code");
+          ex.className     = "ss-warning-excerpt d-block";
+          ex.textContent   = "\u201c" + w.excerpt + "\u201d"; /* textContent — safe */
+
+          body.appendChild(rule);
+          body.appendChild(desc);
+          body.appendChild(ex);
+          li.appendChild(ico);
+          li.appendChild(body);
+          wList.appendChild(li);
+        });
+      }
+
+      /* ── Recommendations ── */
+      const recs  = RECOMMENDATIONS[r.verdict] || RECOMMENDATIONS["Potentially Legitimate"];
+      const rList = document.getElementById("recommendationsList");
+      rList.innerHTML = "";
+      recs.forEach(rec => {
+        const li   = document.createElement("li");
+        li.className = "ss-rec-item mb-2 d-flex align-items-start gap-2";
+
+        const ico  = document.createElement("i");
+        ico.className = "bi " + rec.icon + " ss-rec-icon flex-shrink-0 mt-1";
+        ico.setAttribute("aria-hidden", "true");
+
+        const txt  = document.createElement("span");
+        txt.className   = "ss-rec-text";
+        txt.textContent = rec.text;                    /* textContent — safe */
+
+        li.appendChild(ico);
+        li.appendChild(txt);
+        rList.appendChild(li);
+      });
+
+      /* ── Show & scroll ── */
+      document.getElementById("resultsArea").classList.remove("d-none");
+      document.getElementById("resultsArea").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  </script>
+
+</body>
+</html>
